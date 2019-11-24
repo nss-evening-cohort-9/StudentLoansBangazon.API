@@ -21,6 +21,22 @@ namespace StudentLoans.Controllers
             return products;
         }
 
+        [HttpGet("category/{categoryName}")]
+        public IEnumerable<Product> GetProductsByCategory(string categoryName)
+        {
+            var repo = new ProductRepository();
+            var products = repo.GetProductsByCategory(categoryName);
+            return products;
+        }
+
+        [HttpGet("search/{searchTerm}")]
+        public IEnumerable<Product> GetProductsByName(string searchTerm)
+        {
+            var repo = new ProductRepository();
+            var products = repo.GetProductsByName(searchTerm);
+            return products;
+        }
+
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)

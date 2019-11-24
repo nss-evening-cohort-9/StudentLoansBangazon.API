@@ -22,5 +22,38 @@ namespace StudentLoans.DataAccess
             }
         }
 
+        public IEnumerable<Product> GetProductsByCategory(string category)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                //newCategory adds % to both sides of the search term to make it soft search
+                var newCategory = "%" + category + "%";
+                var sql = @"SELECT
+                                p.*
+                            FROM Products p
+                                JOIN ProductTypes pt on pt.Id = p.productTypeId
+                            WHERE pt.name LIKE @categoryName";
+                var param = new { categoryName = newCategory };
+                var products = db.Query<Product>(sql, param);
+                return products;
+            }
+        }
+
+        public IEnumerable<Product> GetProductsByName(string searchTerm)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                //newSearchTerm adds % to both sides of the search term to make it soft search
+                var newSearchTerm = "%" + searchTerm + "%";
+                var sql = @"SELECT
+                                p.*
+                            FROM Products p
+                            WHERE p.name LIKE @Name";
+                var param = new { Name = newSearchTerm };
+                var products = db.Query<Product>(sql, param);
+                return products;
+            }
+        }
+
     }
 }
