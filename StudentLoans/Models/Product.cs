@@ -13,8 +13,11 @@ namespace StudentLoans.Models
         public int ProductTypeId { get; set; }
         public float PricePerDay { get; set; }
         public string Description { get; set; }
-        public int OwnderId { get; set; }
+        public int OwnerId { get; set; }
         public bool IsRented { get; set; }
+        public DateTime ListDate { get; set; }
+        public string ImageUrl { get; set; }
+
 
     }
 }
