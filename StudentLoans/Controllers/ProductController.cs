@@ -37,6 +37,15 @@ namespace StudentLoans.Controllers
             return products;
         }
 
+        //get home page products
+        [HttpGet("home")]
+        public IEnumerable<Product> GetHomePageProducts()
+        {
+            var repo = new ProductRepository();
+            var products = repo.GetHomePageProducts();
+            return products;
+        }
+
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
