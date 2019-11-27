@@ -51,7 +51,8 @@ namespace StudentLoans.DataAccess
                               PricePerDay,
                               Description,
                               OwnerId,
-                              IsRented
+                              IsRented,
+                              ImageUrl
                               FROM 
                                   Products
                              ORDER BY 
