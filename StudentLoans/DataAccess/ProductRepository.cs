@@ -39,6 +39,29 @@ namespace StudentLoans.DataAccess
             }
         }
 
+        public IEnumerable<Product> GetHomePageProducts()
+        {
+
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"SELECT TOP (20) 
+                              Id,
+                              [Name],
+                              ProductTypeId,
+                              PricePerDay,
+                              Description,
+                              OwnerId,
+                              IsRented,
+                              ImageUrl
+                              FROM 
+                                  Products
+                             ORDER BY 
+			                		ListDate DESC;"; 
+                var products = db.Query<Product>(sql);
+                return products;
+            }
+        }
+
         public IEnumerable<Product> GetProductsByName(string searchTerm)
         {
             using (var db = new SqlConnection(_connectionString))
