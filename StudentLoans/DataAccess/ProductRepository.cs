@@ -78,6 +78,7 @@ namespace StudentLoans.DataAccess
             }
         }
 
+
         public IEnumerable<Product> GetSellersAvailableProducts(int productId)
         {
             using (var db = new SqlConnection(_connectionString))
@@ -86,6 +87,22 @@ namespace StudentLoans.DataAccess
                                 where OwnerId = 1;";
                 var products = db.Query<Product>(sql);
                 return products;
+            }
+        }
+
+
+        public Product GetProductById(int productId)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"select p.*, u.FirstName + ' '  + u.LastName as FullName
+                           from products p
+                            join users u
+	                            on u.id = p.OwnerId
+	                        where p.Id = @ProductId";
+                var param = new { ProductId = productId };
+                var product = db.QueryFirst<Product>(sql, param);
+                return product;
             }
         }
 

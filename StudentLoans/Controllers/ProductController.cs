@@ -56,10 +56,12 @@ namespace StudentLoans.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        [HttpGet("item/{id}")]
+        public Product Get(int id)
         {
-            return "value";
+            var repo = new ProductRepository();
+            var product = repo.GetProductById(id);
+            return product;
         }
 
         // POST api/values

@@ -17,6 +17,7 @@ namespace StudentLoans.Models
         public bool IsRented { get; set; }
         public DateTime ListDate { get; set; }
         public string ImageUrl { get; set; }
+        public string FullName { get; set; }
 
 
     }
