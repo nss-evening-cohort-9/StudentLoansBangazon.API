@@ -79,13 +79,14 @@ namespace StudentLoans.DataAccess
         }
 
 
-        public IEnumerable<Product> GetSellersAvailableProducts(int productId)
+        public IEnumerable<Product> GetSellersAvailableProducts(int ownerId)
         {
             using (var db = new SqlConnection(_connectionString))
             {
                 var sql = @"select OwnerId, [Name], IsRented from Products 
-                                where OwnerId = 1;";
-                var products = db.Query<Product>(sql);
+                                WHERE OwnerId = @OwnerId AND isRented = 0;";
+                var param = new { OwnerId = ownerId };
+                var products = db.Query<Product>(sql, param);
                 return products;
             }
         }
