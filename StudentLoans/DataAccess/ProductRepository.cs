@@ -83,8 +83,9 @@ namespace StudentLoans.DataAccess
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var sql = @"select OwnerId, [Name], IsRented from Products 
-                                WHERE OwnerId = @OwnerId AND isRented = 0;";
+                var sql = @"SELECT p.*
+                            FROM Products p
+                            WHERE OwnerId = @OwnerId AND isRented = 0;";
                 var param = new { OwnerId = ownerId };
                 var products = db.Query<Product>(sql, param);
                 return products;
@@ -96,9 +97,11 @@ namespace StudentLoans.DataAccess
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var sql = @"SELECT p.*
-                            FROM Products p
-                            WHERE OwnerId = @OwnerId AND isRented = 0;";
+                var sql = @"select p.*, u.FirstName + ' '  + u.LastName as FullName
+                           from products p
+                            join users u
+	                            on u.id = p.OwnerId
+	                        where p.Id = @ProductId";
                 var param = new { ProductId = productId };
                 var product = db.QueryFirst<Product>(sql, param);
                 return product;
