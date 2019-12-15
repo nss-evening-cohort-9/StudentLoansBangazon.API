@@ -46,6 +46,15 @@ namespace StudentLoans.Controllers
             return products;
         }
 
+        //get products owner has available 
+        [HttpGet("ownerPage/{id}")]
+        public IEnumerable<Product> GetSellersAvailableProducts(int id)
+        {
+            var repo = new ProductRepository();
+            var products = repo.GetSellersAvailableProducts(id);
+            return products;
+        }
+
         // GET api/values/5
         [HttpGet("item/{id}")]
         public Product Get(int id)
