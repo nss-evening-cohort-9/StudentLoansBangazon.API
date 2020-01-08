@@ -26,5 +26,19 @@ namespace StudentLoans.DataAccess
                 return db.Execute(sql, NewUser);
             }
         }
+
+        public int CheckForUserAccount(string firebaseId)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"SELECT
+                                count(1)
+                            FROM Users u
+                            WHERE u.firebaseId = @FirebaseId;";
+                var param = new { FirebaseId = firebaseId };
+                var output = db.QueryFirst<int>(sql, param);
+                return output;
+            }
+        }
     }
 }

@@ -15,10 +15,10 @@ namespace StudentLoans.Controllers
     public class UserController : FirebaseEnabledController
     {
         // GET api/values
-        [HttpPost("user")]
+        [HttpPost("createuser")]
         public ActionResult CreateNewUser(AddUserCommand newUserCommand)
         {
-            newUserCommand.FirebaseId = UserId;
+           // newUserCommand.FirebaseId = UserId;
 
             var repo = new UserRepository();
             var userCreated = repo.Add(newUserCommand);
@@ -29,6 +29,14 @@ namespace StudentLoans.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpGet("checkuser/{firebaseId}")]
+        public int CheckForUserAccount(string firebaseId)
+        {
+            var repo = new UserRepository();
+            var userCheck = repo.CheckForUserAccount(firebaseId);
+            return userCheck;
         }
     }
 }
