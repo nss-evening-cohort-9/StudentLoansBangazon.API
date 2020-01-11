@@ -31,6 +31,7 @@ namespace StudentLoans.Controllers
             return Ok();
         }
 
+        // newUserCommand
         [HttpGet("checkuser/{firebaseId}")]
         public int CheckForUserAccount(string firebaseId)
         {
